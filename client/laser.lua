@@ -41,16 +41,18 @@ end
 -- Function to draw the laser effect
 function drawLaser()
 	local playerPed    = PlayerPedId()
+	local player = PlayerId()
 	lib.showTextUI("COPY : [E] vector3 | [Q] vector4 | [F] coords | [R] Json | [H] Heading", {position = 'top-center'})
     while laserEnabled do
-		local color = { r = 106, g = 255, b = 54, a = 200 }
+		local color = { r = 255, g = 255, b = 255, a = 200 }
 		local position = GetEntityCoords(playerPed)
 		local hit, coords, entity = RayCastGamePlayCamera(1000.0)
-		-- If entity is found then verify entity
+		local heading = GetEntityHeading(GetPlayerPed(-1))
+		local x = roundcord(coords.x, 2)
+		local y = roundcord(coords.y, 2)
+		local z = roundcord(coords.z, 2)
+		local w = roundcord(heading, 2)
 		if IsControlJustReleased(0, 51) then -- Copy Vector3 Coords
-			local x = roundcord(coords.x, 2)
-			local y = roundcord(coords.y, 2)
-			local z = roundcord(coords.z, 2)
 			laserEndPoint = string.format('vector3(%s, %s, %s)', x, y, z)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
@@ -61,10 +63,6 @@ function drawLaser()
 			})
 		end
 		if IsControlJustReleased(0, 52) then -- Copy Vector4 Coords
-			local x = roundcord(coords.x, 2)
-			local y = roundcord(coords.y, 2)
-			local z = roundcord(coords.z, 2)
-			local w = roundcord(GetEntityHeading(GetPlayerPed(-1)), 2)
 			laserEndPoint = string.format('vector4(%s, %s, %s, %s)', x, y, z, w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
@@ -75,10 +73,7 @@ function drawLaser()
 			})
 		end
 		if IsControlJustReleased(0, 45) then -- Copy Coords In json
-			local x = roundcord(coords.x, 2)
-			local y = roundcord(coords.y, 2)
-			local z = roundcord(coords.z, 2)
-			local w = roundcord(GetEntityHeading(GetPlayerPed(-1)), 2)
+
 			laserEndPoint = string.format('{x = %s, y = %s, z = %s, w = %s)', x, y, z, w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
@@ -89,7 +84,7 @@ function drawLaser()
 			})
 		end
 		if IsControlJustReleased(0, 74) then -- Copy Heading
-			laserEndPoint = string.format('%s', roundcord(GetEntityHeading(GetPlayerPed(-1)), 2))
+			laserEndPoint = string.format('%s', w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
 				title = 'Heading Copied',
@@ -105,7 +100,7 @@ function drawLaser()
 			laserEndPoint = string.format('%s, %s, %s', x, y, z)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Cord Copied',
+				title = 'Coordinate Copied',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
@@ -118,18 +113,9 @@ function drawLaser()
 	lib.hideTextUI()
 end
 
-
--- Command handler
-RegisterCommand("plaser", function()
-    laserEnabled = not laserEnabled
+RegisterNetEvent('polygun:runlaser', function()
+	laserEnabled = not laserEnabled
     if not laserEnabled then
-		lib.setClipboard(laserEndPoint)
-		lib.notify({
-			title = 'Vector3 Copied',
-			duration = 7500,
-			description = laserEndPoint,
-			type = 'success'
-		})
 		laserEndPoint = nil
 	else
 		drawLaser()

@@ -1,6 +1,6 @@
 # `polygun`
 
-Easily create polyzones around objects and save for configuring 
+Easily create polyzones around objects and save for configuring
 
 ![image](https://github.com/BryceRussell/polygun/assets/19967622/26c96993-aba7-4089-8cde-1d1956919651)
 
@@ -19,9 +19,11 @@ Easily create polyzones around objects and save for configuring
 2) Equip a gun and aim it at an object to select it
 
 3) (**Optional**) Tweak size
-   - **Scroll**: Scale XYZ 
+   - **Scroll**: Scale XYZ
    - **Up/Down Arrows**: Scale X
    - **Right/Left Arrows**: Scale Y
    - **Page Up/Down**: Scale Z
 
-4) Press `E` (or use `/polygunsave`) to save it to the `zones.txt` file inside the resource 
+4) Press `E` (or use `/polygunsave`) to save it to the `zones.txt` file inside the resource
+
+5) Enable only coordinate copy from laser point `/plaser`

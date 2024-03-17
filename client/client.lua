@@ -163,8 +163,15 @@ ToggleInfos = function()           -- "ToggleInfos" is a function
 	Config.loopOn = not Config.loopOn -- Switch them around
 end                                -- Ending the function here.
 
--- Creating the command.
-RegisterCommand("polygun", function() -- Listen for this command.
+RegisterNetEvent('polygun:runpolygun', function()
 	destoryZone()
-	ToggleInfos()                       -- Heard it! Let's toggle the function above.
-end)                                  -- Ending the function here.
+	ToggleInfos()
+	if Config.loopOn then
+		lib.notify({
+			title = 'Info',
+			duration = 7500,
+			description = 'Get Gun In hand and aim to entity',
+			type = 'success'
+		})
+	end
+end)
