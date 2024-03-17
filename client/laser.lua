@@ -120,7 +120,7 @@ end
 -- Function to draw the laser effect
 function drawLaser()
 	local playerPed    = PlayerPedId()
-	lib.showTextUI("CONTROLS : [E] vector3 | [Q] vector4 | [F] coords | [R] Json | [H] Heading | [G] Add Zone | [X] Save Zone", {position = 'top-center'})
+	lib.showTextUI("CONTROLS : [N] vector2 | [E] vector3 | [Q] vector4 | [F] coords | [R] Json | [H] Heading | [G] Add Zone | [X] Save Zone", {position = 'top-center'})
     while laserEnabled do
 		local color = { r = 255, g = 255, b = 255, a = 200 }
 		local position = GetEntityCoords(playerPed)
@@ -144,7 +144,7 @@ function drawLaser()
 			laserEndPoint = string.format('vector3(%s, %s, %s)', x, y, z)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Vector3 Copied',
+				title = 'Vector 3 Copy',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
@@ -154,7 +154,19 @@ function drawLaser()
 			laserEndPoint = string.format('vector4(%s, %s, %s, %s)', x, y, z, w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Vector3 Copied',
+				title = 'Vector 4 Copy',
+				duration = 7500,
+				description = laserEndPoint,
+				type = 'success'
+			})
+		end
+
+		if IsControlJustReleased(0, 306) then --N  Copy Coords
+
+			laserEndPoint = string.format('vector2(%s, %s)', x, y)
+			lib.setClipboard(laserEndPoint)
+			lib.notify({
+				title = 'Vector 2 Copy',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
@@ -165,7 +177,7 @@ function drawLaser()
 			laserEndPoint = string.format('{x = %s, y = %s, z = %s, w = %s)', x, y, z, w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Vector3 Copied',
+				title = 'Json Copy',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
@@ -175,7 +187,7 @@ function drawLaser()
 			laserEndPoint = string.format('%s', w)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Heading Copied',
+				title = 'Heading Copy',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
@@ -188,7 +200,7 @@ function drawLaser()
 			laserEndPoint = string.format('%s, %s, %s', x, y, z)
 			lib.setClipboard(laserEndPoint)
 			lib.notify({
-				title = 'Coordinate Copied',
+				title = 'Coordinate Copy',
 				duration = 7500,
 				description = laserEndPoint,
 				type = 'success'
