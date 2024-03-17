@@ -73,14 +73,13 @@ local function drawEntityZone()
 end
 
 function createEntity()
-	local input = lib.inputDialog('Dialog title', {
-		{type = 'input', label = 'Zone Name', description = 'Enter Zone name', required = true, min = 4, max = 16},
-		{type = 'number', label = 'Width X', description = 'Enter width size',  required = true, icon = 'hashtag'},
-		{type = 'number', label = 'Height Y', description = 'Enter height size',  required = true, icon = 'hashtag'},
-		{type = 'number', label = 'Height Z', description = 'Enter height for Z',  required = true, icon = 'hashtag'},
+	local input = lib.inputDialog('Create Zone', {
+		{type = 'input', label = 'Zone Name', description = 'Enter Zone name', required = true, min = 4, max = 16, default = "polyzone_"..tostring(math.random(1111,9999))},
+		{type = 'number', label = 'Width X', description = 'Enter width size',  required = true, icon = 'hashtag', default = 2},
+		{type = 'number', label = 'Height Y', description = 'Enter height size',  required = true, icon = 'hashtag', default = 2},
+		{type = 'number', label = 'Height Z', description = 'Enter height for Z',  required = true, icon = 'hashtag', default = 2},
 	  })
 	if not input then return end
-	print(json.encode(input), input[1], input[2])
 	local modelName = "prop_parking_sign_1"
 	NAME = input[1]
 	SCALEX = input[2]
@@ -95,6 +94,9 @@ function createEntity()
     end
     ENTITY = CreateObject(modelName, laserEndPoint.x, laserEndPoint.y, laserEndPoint.z, true, true, true)
 	SetEntityHeading(ENTITY, HEADING)
+	SetEntityAlpha(ENTITY, 0, false)
+	FreezeEntityPosition(ENTITY, true)
+	SetEntityCompletelyDisableCollision(ENTITY, false)
 	Wait(100)
 	drawEntityZone()
 end
