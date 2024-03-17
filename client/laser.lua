@@ -120,7 +120,7 @@ end
 -- Function to draw the laser effect
 function drawLaser()
 	local playerPed    = PlayerPedId()
-	lib.showTextUI("COPY : [E] vector3 | [Q] vector4 | [F] coords | [R] Json | [H] Heading | [G] Add Zone | [X] Save Zone", {position = 'top-center'})
+	lib.showTextUI("CONTROLS : [E] vector3 | [Q] vector4 | [F] coords | [R] Json | [H] Heading | [G] Add Zone | [X] Save Zone", {position = 'top-center'})
     while laserEnabled do
 		local color = { r = 255, g = 255, b = 255, a = 200 }
 		local position = GetEntityCoords(playerPed)
