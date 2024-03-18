@@ -64,12 +64,14 @@ end
 
 local function drawEntityZone()
 	destoryZone()
-	ZONE = EntityZone:Create(ENTITY, {
-		name = NAME,
-		debugPoly = true,
-		useZ = true,
-		scale = scale or { SCALEX, SCALEY, SCALEZ }
-	})
+	if DoesEntityExist(ENTITY) then
+		ZONE = EntityZone:Create(ENTITY, {
+			name = NAME,
+			debugPoly = true,
+			useZ = true,
+			scale = scale or { SCALEX, SCALEY, SCALEZ }
+		})
+	end
 end
 
 function createEntity()
@@ -88,10 +90,9 @@ function createEntity()
 	if DoesEntityExist(ENTITY) then
 		if GetEntityModel(entity) == GetHashKey("prop_parking_sign_1") then
 			DeleteEntity(ENTITY)
-		else
-			ENTITY = nil
 		end
 	end
+	ENTITY = nil
     RequestModel(modelName)
     while not HasModelLoaded(modelName) do
         Wait(500)
@@ -123,6 +124,7 @@ function saveZone()
 				DeleteEntity(ENTITY)
 			end
 		end
+		ENTITY = nil
 		destoryZone()
 		Wait(300)
 		RESULT = nil
@@ -275,7 +277,6 @@ CreateThread(function()                                  -- Create the thread.
 							type = 'success'
 						})
 					end
-
 
 					if IsControlJustReleased(0, 75) then -- Copy Coords without vetor
 						local x = round(coords.x, 2)
