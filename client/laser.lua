@@ -64,12 +64,14 @@ end
 
 local function drawEntityZone()
 	destoryZone()
-	ZONE = EntityZone:Create(ENTITY, {
-		name = NAME,
-		debugPoly = true,
-		useZ = true,
-		scale = scale or { SCALEX, SCALEY, SCALEZ }
-	})
+	if DoesEntityExist(ENTITY) then
+		ZONE = EntityZone:Create(ENTITY, {
+			name = NAME,
+			debugPoly = true,
+			useZ = true,
+			scale = scale or { SCALEX, SCALEY, SCALEZ }
+		})
+	end
 end
 
 function createEntity()
@@ -195,6 +197,8 @@ function drawLaser()
 				type = 'success'
 			})
 		end
+
+
 		if IsControlJustReleased(0, 75) then -- Copy Coords without vetor
 			local x = roundcord(coords.x, 2)
 			local y = roundcord(coords.y, 2)
