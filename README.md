@@ -24,6 +24,18 @@ Easily create polyzones around objects and save for configuring
    - **Right/Left Arrows**: Scale Y
    - **Page Up/Down**: Scale Z
 
-4) Press `E` (or use `/polygunsave`) to save it to the `zones.txt` file inside the resource
+# Controls
 
-5) Enable only coordinate copy from laser point `/plaser`
+4) `X` to save it to the `zones.txt` file inside the resource
+
+5) `N` copy Vector2
+
+6) `E` copy Vector3
+
+7) `Q` Copy vectory4
+
+8) `F` copy only coordinates (x, y, z) format
+
+9) `R` copy cords in json format
+
+10) `G` Add zone at laser/line pointed location

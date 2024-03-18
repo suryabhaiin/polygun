@@ -2,7 +2,7 @@ Config = {}
 
 Config.loopOn = false       -- true: enabled by default, false: disabled by default (use /polygun to toggle)
 
-Config.defaultSaveKey = 'E' -- Keybind to save selected zone to `zones.txt` file
+Config.defaultSaveKey = 'X' -- Keybind to save selected zone to `zones.txt` file
 
 Config.clipboard = true     -- Copy to clipboard on save
 
