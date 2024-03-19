@@ -76,7 +76,7 @@ end
 
 function createEntity()
 	local input = lib.inputDialog('Create Zone', {
-		{type = 'input', label = 'Zone Name', description = 'Enter Zone name', required = true, min = 4, max = 16, default = "polyzone_"..tostring(math.random(1111,9999))},
+		{type = 'input', label = 'Zone Name', description = 'Enter Zone name', required = true, min = 4, max = 16, default = "boxzone_"..tostring(math.random(1111,9999))},
 		{type = 'number', label = 'Width X', description = 'Enter width size',  required = true, icon = 'hashtag', default = 2},
 		{type = 'number', label = 'Height Y', description = 'Enter height size',  required = true, icon = 'hashtag', default = 2},
 		{type = 'number', label = 'Height Z', description = 'Enter height for Z',  required = true, icon = 'hashtag', default = 2},
@@ -124,12 +124,12 @@ function saveZone()
 				DeleteEntity(ENTITY)
 			end
 		end
-		ENTITY = nil
-		destoryZone()
-		Wait(300)
-		RESULT = nil
-		laserEnabled = false
 	end
+	ENTITY = nil
+	destoryZone()
+	Wait(300)
+	RESULT = nil
+	laserEnabled = false
 end
 
 CreateThread(function()                                  -- Create the thread.
@@ -141,20 +141,17 @@ CreateThread(function()                                  -- Create the thread.
 		if Config.loopOn then                                        -- If the info is on then...
 			pause = 5                                                  -- Only loop every 5ms (equivalent of 200fps).
 			if IsPlayerFreeAiming(player) then                         -- If the player is free-aiming (update texts)...
+				if RESULT then
+					RESULT = nil
+				end
 				local start = GetPedBoneCoords(PlayerPedId(), 57005, 0.0, 0.0, 0.0)
 				local result, entity = GetEntityPlayerIsFreeAimingAt(player) -- Get what the player is aiming at. This isn't actually the function, that's below the thread.
 				if result then
 					RESULT = result
 					ENTITY = entity
 					COORDS = GetEntityCoords(ENTITY)
-					if Config.debugAimLine then
-						DrawLine(start.x, start.y, start.z, COORDS.x, COORDS.y, COORDS.z, 0, 255, 0, 255)
-					end
-				elseif Config.debugAimLine then
-					local finish = GetWorldCoordFromScreenCoord(0.5, 0.5)
-					DrawLine(start.x, start.y, start.z, finish.x, finish.y, finish.z, 0, 255, 0, 255)
 				end
-			else
+			end
 				if RESULT then
 					local heading = GetEntityHeading(ENTITY)
 					local model = GetEntityModel(ENTITY)
@@ -210,7 +207,7 @@ CreateThread(function()                                  -- Create the thread.
 						drawEntityZone()
 					end
 				else
-					local color = { r = 255, g = 255, b = 255, a = 200 }
+					local color = { r = 0, g = 255, b = 0, a = 200 }
 					local position = GetEntityCoords(playerPed)
 					local hit, coords, entity = RayCastGamePlayCamera(1000.0)
 					local heading = GetEntityHeading(GetPlayerPed(-1))
@@ -337,7 +334,7 @@ CreateThread(function()                                  -- Create the thread.
 					saveZone()
 					Wait(1000)
 				end
-			end
+
 		end
 		Wait(pause)
 	end
